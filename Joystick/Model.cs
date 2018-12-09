@@ -14,8 +14,6 @@ namespace UARTconnection
 
     public class Model 
     {
-
-        
         private static int Airpressure;
         private RotateTransform yawangle;
         private string advdepth;

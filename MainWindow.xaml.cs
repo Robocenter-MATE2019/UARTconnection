@@ -44,7 +44,13 @@ namespace UARTconnection
             info += "Slighter:  " + Model.vGM.slighter_p + "\n"; //sligterP[0] + ";";
             info += "PointOfView:   " + Model.vGM.manipulator_p + "\n";
             for (int i = 0; i < 12; i++) info += "Key" + i + ": " + Maincontroller.GetButtons[i] + "\n";
-            string message = Model.vGM.axisX_p + "-" + Model.vGM.axisY_p + "-" + Model.vGM.JRZ_p;
+            Console.WriteLine(info);
+            byte[] message = new byte[5];
+            message[0] = (byte)Model.vGM.axisX_p;
+            message[1] = (byte)'-';
+            message[2] = (byte)Model.vGM.axisY_p;
+            message[3] = (byte)'-';
+            message[4] = (byte)Model.vGM.JRZ_p;
             mainconnection.UARTWrite(message);
 
         }
@@ -54,7 +60,7 @@ namespace UARTconnection
             mainconnection.InitializePort();
             Maincontroller.InitializeJoystick(this);
             timer.Tick += new EventHandler(timertick);
-            timer.Interval = new TimeSpan(0, 0, 0, 1);
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 50);
             timer.Start();
            
         }

@@ -15,12 +15,12 @@ namespace UARTconnection
             sp.PortName = UARTModel.COMport;
             sp.BaudRate = UARTModel.BaudRate;
             UARTModel.status = "Connected";
-        }
-        public void UARTWrite(string message)
-        {
             sp.Open();
-            sp.Write(message);
-            sp.Close();
+        }
+        public void UARTWrite(byte[] message)
+        {
+            sp.Write(message,0,message.Length);
+
         }
         public void UARTDisconnect()
         {
