@@ -26,10 +26,10 @@ namespace UARTconnection
             public sbyte button_data2;
             public sbyte axisX_p;
             public sbyte axisY_p;
-            public sbyte axisZ_p;
+            public sbyte axisW_p;
             public sbyte manipulator_p;
             public sbyte slighter_p;
-            public sbyte JRZ_p;
+            public sbyte axisZ_p;
 
         };
 

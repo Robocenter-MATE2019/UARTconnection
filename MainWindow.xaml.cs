@@ -39,7 +39,7 @@ namespace UARTconnection
             Maincontroller.UpdateJoystick(vmodel);
             info = "AxisX: " + Model.vGM.axisX_p + "\n";//state.X + "\n";
             info += "AxisY: " + Model.vGM.axisY_p + "\n";
-            info += "AxisZ: " + Model.vGM.JRZ_p + "\n";//state.Rz + ";";
+            info += "AxisW: " + Model.vGM.axisW_p + "\n";//state.Rz + ";";
             info += "Lever: " + Model.vGM.axisZ_p + "\n";//state.Z + ";";
             info += "Slighter:  " + Model.vGM.slighter_p + "\n"; //sligterP[0] + ";";
             info += "PointOfView:   " + Model.vGM.manipulator_p + "\n";
@@ -48,8 +48,8 @@ namespace UARTconnection
             byte[] message = new byte[5];
             message[0] = (byte)'*';
             message[1] = (byte)Model.vGM.axisX_p;
-            message[2] = (byte)Model.vGM.axisY_p;
-            message[3] = (byte)Model.vGM.JRZ_p;
+            message[2] = (byte)Model.vGM.axisW_p;
+            message[3] = (byte)Model.vGM.axisZ_p;
             message[4] = (byte)'-';
             mainconnection.UARTWrite(message);
             Data_Label.Content = info;

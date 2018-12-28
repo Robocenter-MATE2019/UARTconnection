@@ -151,10 +151,10 @@ namespace UARTconnection
                 SpeedK = 1.0;
             }
             
-            Model.vGM.axisX_p = (sbyte)Math.Round(state.X * SpeedK);
-            Model.vGM.axisY_p = (sbyte)Math.Round(state.Y * SpeedK * -1);
-            Model.vGM.axisZ_p = (sbyte)state.Z;
-            Model.vGM.JRZ_p = (sbyte)Math.Round(state.Rz * SpeedK);
+            Model.vGM.axisY_p = (sbyte)Math.Round(state.X * SpeedK);
+            Model.vGM.axisX_p = (sbyte)Math.Round(state.Y * SpeedK * -1);
+            Model.vGM.axisW_p = (sbyte)Math.Round(state.Z * SpeedK);
+            Model.vGM.axisZ_p = (sbyte)Math.Round(state.Rz * SpeedK);
 
             if (sligterP[0] > -50 && sligterP[0] < 50) sligterP[0] = 0;
             Model.vGM.slighter_p = (sbyte)(sligterP[0]);//V<
