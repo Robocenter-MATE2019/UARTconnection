@@ -98,5 +98,15 @@ namespace UARTconnection
                 Console.WriteLine("Это не НОРМАЛЬНЫЙ ввод!!");
             }
         }
+
+        private void PadioButton_115200_Checked(object sender, RoutedEventArgs e)
+        {
+            UARTModel.BaudRate = 115200;
+        }
+
+        private void PadioButton_9600_Checked(object sender, RoutedEventArgs e)
+        {
+            UARTModel.BaudRate = 9600;
+        }
     }
 }

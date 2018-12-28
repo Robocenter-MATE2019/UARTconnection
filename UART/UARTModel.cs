@@ -11,7 +11,7 @@ namespace UARTconnection
     {
         
         public static string COMport = "COM20";
-        public static int BaudRate = 115200;
+        public static int BaudRate = 9600;
         public static string status = "Disconnected";
 
     }
