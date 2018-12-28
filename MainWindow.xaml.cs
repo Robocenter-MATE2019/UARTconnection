@@ -46,28 +46,38 @@ namespace UARTconnection
             for (int i = 0; i < 12; i++) info += "Key" + i + ": " + Maincontroller.GetButtons[i] + "\n";
             Console.WriteLine(info);
             byte[] message = new byte[5];
-            message[0] = (byte)Model.vGM.axisX_p;
-            message[1] = (byte)'-';
+            message[0] = (byte)'*';
+            message[1] = (byte)Model.vGM.axisX_p;
             message[2] = (byte)Model.vGM.axisY_p;
-            message[3] = (byte)'-';
-            message[4] = (byte)Model.vGM.JRZ_p;
+            message[3] = (byte)Model.vGM.JRZ_p;
+            message[4] = (byte)'-';
             mainconnection.UARTWrite(message);
-
+            Data_Label.Content = info;
         }
         
         private void MainWindow1_Loaded(object sender, RoutedEventArgs e)
         {
-            mainconnection.InitializePort();
+            
             Maincontroller.InitializeJoystick(this);
             timer.Tick += new EventHandler(timertick);
             timer.Interval = new TimeSpan(0, 0, 0, 0, 50);
-            timer.Start();
+
            
         }
 
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
-            Data_Label.Content = info;
+            if (timer.IsEnabled)
+            {
+                timer.Stop();
+                Button1.Content = "Start";
+            }
+            else
+            {
+                mainconnection.InitializePort();
+                timer.Start();
+                Button1.Content = "Stop";
+            }
         }
 
         private void MainWindow1_Closed(object sender, EventArgs e)
