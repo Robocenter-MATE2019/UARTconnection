@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UARTconnection"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" Loaded="MainWindow1_Loaded" Closed="MainWindow1_Closed">
+        Title="MainWindow" Height="350" Width="525" Loaded="MainWindow1_Loaded" Closed="MainWindow1_Closed" KeyDown="MainWindow1_KeyDown" KeyUp="MainWindow1_KeyUp">
 	<Grid>
 		<Label x:Name="Data_Label" Content="Label" HorizontalAlignment="Left" Height="254" Margin="10,33,0,0" VerticalAlignment="Top" Width="326"/>
 		<Button x:Name="Button1" Content="Start" HorizontalAlignment="Left" Height="50" Margin="388,237,0,0" VerticalAlignment="Top" Width="119" Click="Button1_Click"/>

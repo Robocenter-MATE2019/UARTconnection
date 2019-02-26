@@ -10,15 +10,16 @@ using System.Windows.Media;
 
 namespace UARTconnection
 {
-   
 
-    public class Model 
+
+    public class Model
     {
         private static int Airpressure;
         private RotateTransform yawangle;
         private string advdepth;
         private static int speedmode;
-
+        private static int motorpower = 0;
+        private static int lightbrightness = 0;
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct GM
         {
@@ -40,8 +41,33 @@ namespace UARTconnection
             get { return speedmode; }
             set { speedmode = value; }
         }
-        
-
+        public static int MotorPower
+        {
+            get
+            {
+                return motorpower;
+            }
+            set
+            {
+                motorpower = value;
+            }
+        }
+        public static int LightBrightness
+        {
+            get
+            {
+                return lightbrightness;
+            }
+            set
+            {
+                lightbrightness = value;
+            }
+        }
+        public static int Direction
+        {
+            get;
+            set;
+        }
         public Model()
         {
             speedmode      = 1;

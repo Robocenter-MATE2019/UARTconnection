@@ -23,7 +23,6 @@ namespace UARTconnection
     public partial class MainWindow : Window
     {
         public DispatcherTimer timer = new DispatcherTimer();
-        public JoystickController Maincontroller;
         public VModel vmodel;
         public UARTConnection mainconnection;
         public string info;
@@ -31,38 +30,24 @@ namespace UARTconnection
         {
             InitializeComponent();
             vmodel = new VModel(new Model());
-            Maincontroller = new JoystickController();
             mainconnection = new UARTConnection();
         }
         public void timertick(object sender, EventArgs e)
         {
-            Maincontroller.UpdateJoystick(vmodel);
-            info = "AxisX: " + Model.vGM.axisX_p + "\n";//state.X + "\n";
-            info += "AxisY: " + Model.vGM.axisY_p + "\n";
-            info += "AxisW: " + Model.vGM.axisW_p + "\n";//state.Rz + ";";
-            info += "Lever: " + Model.vGM.axisZ_p + "\n";//state.Z + ";";
-            info += "Slighter:  " + Model.vGM.slighter_p + "\n"; //sligterP[0] + ";";
-            info += "PointOfView:   " + Model.vGM.manipulator_p + "\n";
-            for (int i = 0; i < 12; i++) info += "Key" + i + ": " + Maincontroller.GetButtons[i] + "\n";
-            Console.WriteLine(info);
-            byte[] message = new byte[5];
+         
+            byte[] message = new byte[4];
             message[0] = (byte)'*';
-            message[1] = (byte)Model.vGM.axisX_p;
-            message[2] = (byte)Model.vGM.axisW_p;
-            message[3] = (byte)Model.vGM.axisZ_p;
-            message[4] = (byte)'-';
+            message[1] = (byte)(Model.MotorPower*(Model.Direction));
+            message[2] = (byte)Model.LightBrightness;
+            message[3] = (byte)'-';
             mainconnection.UARTWrite(message);
             Data_Label.Content = info;
         }
-        
+       
         private void MainWindow1_Loaded(object sender, RoutedEventArgs e)
         {
-            
-            Maincontroller.InitializeJoystick(this);
             timer.Tick += new EventHandler(timertick);
             timer.Interval = new TimeSpan(0, 0, 0, 0, 50);
-
-           
         }
 
         private void Button1_Click(object sender, RoutedEventArgs e)
@@ -107,6 +92,38 @@ namespace UARTconnection
         private void PadioButton_9600_Checked(object sender, RoutedEventArgs e)
         {
             UARTModel.BaudRate = 9600;
+        }
+
+        private void MainWindow1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.W)
+            {
+                Model.Direction = 1;
+            }
+            else if (e.Key == Key.S)
+            {
+                Model.Direction = -1;
+            }
+        }
+
+        private void MainWindow1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Q)
+            {
+                Model.MotorPower += 10;
+            }
+            else if (e.Key == Key.E)
+            {
+                Model.MotorPower -= 10;
+            }
+            if (e.Key == Key.R)
+            {
+                Model.LightBrightness += 10;
+            }
+            else if (e.Key == Key.F)
+            {
+                Model.LightBrightness -= 10;
+            }
         }
     }
 }
