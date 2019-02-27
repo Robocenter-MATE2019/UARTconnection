@@ -17,6 +17,7 @@ namespace UARTconnection
         private static int Airpressure;
         private RotateTransform yawangle;
         private string advdepth;
+        private static string sendingdata = "";
         private static int speedmode;
         private static int motorpower = 0;
         private static int lightbrightness = 0;
@@ -67,6 +68,17 @@ namespace UARTconnection
         {
             get;
             set;
+        }
+        public static string SendingData
+        {
+            get
+            {
+                return sendingdata;
+            }
+            set
+            {
+                sendingdata = value;
+            }
         }
         public Model()
         {

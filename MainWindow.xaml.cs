@@ -41,6 +41,7 @@ namespace UARTconnection
             message[2] = (byte)Model.LightBrightness;
             message[3] = (byte)'-';
             mainconnection.UARTWrite(message);
+            Model.SendingData = "MotorPower: " + Model.MotorPower + "\n" + "Direction: " + Model.Direction + "\n" + "LightBrightness: " + Model.LightBrightness;
             Data_Label.Content = info;
         }
        
@@ -103,6 +104,10 @@ namespace UARTconnection
             else if (e.Key == Key.S)
             {
                 Model.Direction = -1;
+            }
+            else
+            {
+                Model.Direction = 0;
             }
         }
 

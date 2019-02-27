@@ -36,6 +36,18 @@ namespace UARTconnection
                 }
             }
         }
+        public string SendingData
+        {
+            get
+            {
+                return Model.SendingData;
+            }
+            set
+            {
+                Model.SendingData = value;
+                OnPropertyChanged("SendingData");
+            }
+        }
         #region Brushes
         public Brush Speed1Brush => GetBrush(1);
         public Brush Speed2Brush => GetBrush(2);
