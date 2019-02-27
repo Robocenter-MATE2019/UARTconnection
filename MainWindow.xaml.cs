@@ -127,7 +127,7 @@ namespace UARTconnection
             }
             else if (e.Key == Key.F)
             {
-                if (Model.LightBrightness >= -100) Model.LightBrightness -= 10;
+                if (Model.LightBrightness >= 0) Model.LightBrightness -= 10;
             }
         }
     }
