@@ -110,19 +110,19 @@ namespace UARTconnection
         {
             if (e.Key == Key.Q)
             {
-                Model.MotorPower += 10;
+                if(Model.MotorPower <= 100)Model.MotorPower += 10;
             }
             else if (e.Key == Key.E)
             {
-                Model.MotorPower -= 10;
+                if(Model.MotorPower >= -100)Model.MotorPower -= 10;
             }
             if (e.Key == Key.R)
             {
-                Model.LightBrightness += 10;
+                if(Model.LightBrightness <= 100)Model.LightBrightness += 10;
             }
             else if (e.Key == Key.F)
             {
-                Model.LightBrightness -= 10;
+                if (Model.LightBrightness >= -100) Model.LightBrightness -= 10;
             }
         }
     }
