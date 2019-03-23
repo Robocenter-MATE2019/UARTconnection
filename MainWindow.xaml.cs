@@ -113,6 +113,14 @@ namespace UARTconnection
 
         private void MainWindow1_KeyUp(object sender, KeyEventArgs e)
         {
+            if (e.Key == Key.W)
+            {
+                Model.Direction = 0;
+            }
+            if (e.Key == Key.S)
+            {
+                Model.Direction = 0;
+            }
             if (e.Key == Key.Q)
             {
                 if(Model.MotorPower <= 100)Model.MotorPower += 10;
