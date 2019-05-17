@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO.Ports;
 using System.Windows.Threading;
+using Emgu.CV;
+using Emgu.CV.Structure;
 
 namespace UARTconnection
 {
@@ -22,15 +24,20 @@ namespace UARTconnection
     /// </summary>
     public partial class MainWindow : Window
     {
+        private VideoCapture Defaultcapture = new VideoCapture(700);
+        private VideoCapture Secondcapture = new VideoCapture(1);
+        private VideoCapture Firstcapture = new VideoCapture(0);
+
         public DispatcherTimer timer = new DispatcherTimer();
         public VModel vmodel;
+        public VideoModelView videovm = new VideoModelView(new VideoModel());
         public UARTConnection mainconnection;
-        public string info;
         public MainWindow()
         {
             InitializeComponent();
             vmodel = new VModel(new Model());
             mainconnection = new UARTConnection();
+            DataContext = vmodel;
         }
         public void timertick(object sender, EventArgs e)
         {
@@ -42,11 +49,29 @@ namespace UARTconnection
             message[3] = (byte)'-';
             mainconnection.UARTWrite(message);
             Model.SendingData = "MotorPower: " + Model.MotorPower + "\n" + "Direction: " + Model.Direction + "\n" + "LightBrightness: " + Model.LightBrightness;
-            Data_Label.Content = info;
+            Camera_Image.Source = BitmapSourceConvert.ToBitmapSource(videovm.MainCapture.QueryFrame().ToImage<Bgr, Byte>());
         }
        
         private void MainWindow1_Loaded(object sender, RoutedEventArgs e)
         {
+            if (!Firstcapture.IsOpened)
+            {
+                FirstCamera.Visibility = Visibility.Collapsed;
+            }
+            try
+            {
+                Mat Test = Firstcapture.QueryFrame();
+                if (Test == null) throw new NullReferenceException();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                FirstCamera.Visibility = Visibility.Collapsed;
+            }
+            if (!Secondcapture.IsOpened)
+            {
+                SecondCamera.Visibility = Visibility.Collapsed;
+            }
             timer.Tick += new EventHandler(timertick);
             timer.Interval = new TimeSpan(0, 0, 0, 0, 50);
         }
@@ -137,6 +162,21 @@ namespace UARTconnection
             {
                 if (Model.LightBrightness >= 0) Model.LightBrightness -= 10;
             }
+        }
+
+        private void DefaultCamera_Selected(object sender, RoutedEventArgs e)
+        {
+            videovm.MainCapture = Defaultcapture;
+        }
+
+        private void FirstCamera_Selected(object sender, RoutedEventArgs e)
+        {
+            videovm.MainCapture = Firstcapture;
+        }
+
+        private void SecondCamera_Selected(object sender, RoutedEventArgs e)
+        {
+            videovm.MainCapture = Secondcapture;
         }
     }
 }
