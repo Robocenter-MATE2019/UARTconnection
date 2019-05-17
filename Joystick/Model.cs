@@ -14,11 +14,35 @@ namespace UARTconnection
 
     public class Model
     {
-        private string sendingdata = "";
-        private int motorpower = 0;
-        private int lightbrightness = 0;
+        private static int Airpressure;
+        private RotateTransform yawangle;
+        private string advdepth;
+        private static string sendingdata = "";
+        private static int speedmode;
+        private static int motorpower = 0;
+        private static int lightbrightness = 0;
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        public struct GM
+        {
+            public sbyte button_data1;
+            public sbyte button_data2;
+            public sbyte axisX_p;
+            public sbyte axisY_p;
+            public sbyte axisW_p;
+            public sbyte manipulator_p;
+            public sbyte slighter_p;
+            public sbyte axisZ_p;
 
-        public int MotorPower
+        };
+
+        public static GM vGM;//M<
+
+        public static int SpeedMode
+        {
+            get { return speedmode; }
+            set { speedmode = value; }
+        }
+        public static int MotorPower
         {
             get
             {
@@ -29,7 +53,7 @@ namespace UARTconnection
                 motorpower = value;
             }
         }
-        public int LightBrightness
+        public static int LightBrightness
         {
             get
             {
@@ -40,12 +64,12 @@ namespace UARTconnection
                 lightbrightness = value;
             }
         }
-        public int Direction
+        public static int Direction
         {
             get;
             set;
         }
-        public string SendingData
+        public static string SendingData
         {
             get
             {
@@ -58,7 +82,7 @@ namespace UARTconnection
         }
         public Model()
         {
-
+            speedmode      = 1;
         }
 
 }

@@ -14,46 +14,59 @@ namespace UARTconnection
     {
         Model model;
 
+        public string SpeedMode
+        {
+            get { return "SpeedMode: " + Model.SpeedMode; }
+            set
+            {
+                try
+                {
+                    Model.SpeedMode = Convert.ToInt16(value);
+                }
+                catch (FormatException)
+                {
+                    Model.SpeedMode = 1;
+                }
+                finally
+                {
+                    OnPropertyChanged("SpeedMode");
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Speed1Brush"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Speed2Brush"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Speed3Brush"));
+                }
+            }
+        }
         public string SendingData
         {
             get
             {
-                return model.SendingData;
+                return Model.SendingData;
             }
             set
             {
-                model.SendingData = value;
+                Model.SendingData = value;
                 OnPropertyChanged("SendingData");
             }
         }
-        public int MotorPower
+        #region Brushes
+        public Brush Speed1Brush => GetBrush(1);
+        public Brush Speed2Brush => GetBrush(2);
+        public Brush Speed3Brush => GetBrush(3);
+        public Brush GetBrush(int speed)
         {
-            get
+            if (model == null || speed > Model.SpeedMode)
             {
-                return model.MotorPower;
+                return Brushes.White;
             }
-            set
+            switch (Model.SpeedMode)
             {
-                model.MotorPower = value;
+                case 1: return Brushes.Lime;
+                case 2: return Brushes.Gold;
+                default: return Brushes.Firebrick;
             }
         }
-        public int LightBrightness
-        {
-            get
-            {
-                return model.LightBrightness;
-            }
-            set
-            {
-                model.LightBrightness = value;
-            }
-        }
-        public int Direction
-        {
-            get { return model.Direction; }
-            set { model.Direction = value; }
-        }
-        
+        #endregion Brushes
+
         public event PropertyChangedEventHandler PropertyChanged; // Событие, которое нужно вызывать при изменении
         public void OnPropertyChanged(string propertyName)//RaisePropertyChanged(string propertyName)
         {
@@ -63,10 +76,6 @@ namespace UARTconnection
         public VModel(Model model)
         {
             this.model = model;
-            SendingData     = "NoData";
-            Direction       = 0;
-            LightBrightness = 0;
-            MotorPower      = 0;
         }
     }
 }
