@@ -25,24 +25,24 @@ namespace UARTconnection
         public DispatcherTimer timer = new DispatcherTimer();
         public VModel vmodel;
         public UARTConnection mainconnection;
-        public string info;
+
         public MainWindow()
         {
             InitializeComponent();
             vmodel = new VModel(new Model());
             mainconnection = new UARTConnection();
+            DataContext = vmodel;
         }
         public void timertick(object sender, EventArgs e)
         {
          
             byte[] message = new byte[4];
             message[0] = (byte)'*';
-            message[1] = (byte)(Model.MotorPower*(Model.Direction));
-            message[2] = (byte)Model.LightBrightness;
+            message[1] = (byte)(vmodel.MotorPower*(vmodel.Direction));
+            message[2] = (byte)vmodel.LightBrightness;
             message[3] = (byte)'-';
             mainconnection.UARTWrite(message);
-            Model.SendingData = "MotorPower: " + Model.MotorPower + "\n" + "Direction: " + Model.Direction + "\n" + "LightBrightness: " + Model.LightBrightness;
-            Data_Label.Content = info;
+            vmodel.SendingData = "MotorPower: " + vmodel.MotorPower + "\n" + "Direction: " + vmodel.Direction + "\n" + "LightBrightness: " + vmodel.LightBrightness;
         }
        
         private void MainWindow1_Loaded(object sender, RoutedEventArgs e)
@@ -99,15 +99,15 @@ namespace UARTconnection
         {
             if (e.Key == Key.W)
             {
-                Model.Direction = 1;
+                vmodel.Direction = 1;
             }
             else if (e.Key == Key.S)
             {
-                Model.Direction = -1;
+                vmodel.Direction = -1;
             }
             else
             {
-                Model.Direction = 0;
+                vmodel.Direction = 0;
             }
         }
 
@@ -115,27 +115,27 @@ namespace UARTconnection
         {
             if (e.Key == Key.W)
             {
-                Model.Direction = 0;
+                vmodel.Direction = 0;
             }
             if (e.Key == Key.S)
             {
-                Model.Direction = 0;
+                vmodel.Direction = 0;
             }
             if (e.Key == Key.Q)
             {
-                if(Model.MotorPower <= 100)Model.MotorPower += 10;
+                if(vmodel.MotorPower <= 100)vmodel.MotorPower += 10;
             }
             else if (e.Key == Key.E)
             {
-                if(Model.MotorPower >= -100)Model.MotorPower -= 10;
+                if(vmodel.MotorPower >= -100)vmodel.MotorPower -= 10;
             }
             if (e.Key == Key.R)
             {
-                if(Model.LightBrightness <= 100)Model.LightBrightness += 10;
+                vmodel.LightBrightness = 1;
             }
             else if (e.Key == Key.F)
             {
-                if (Model.LightBrightness >= 0) Model.LightBrightness -= 10;
+                vmodel.LightBrightness = 0;
             }
         }
     }
