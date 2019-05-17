@@ -34,12 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Emgu.CV.UI">
-      <HintPath>..\WpfApp3-joystick-2c375ab88b607d435fe107c86fe8b69e0d954f0f\WpfApp3-joystick\bin\Debug\Emgu.CV.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Emgu.CV.World">
-      <HintPath>..\WpfApp3-joystick-2c375ab88b607d435fe107c86fe8b69e0d954f0f\WpfApp3-joystick\bin\Debug\Emgu.CV.World.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.DirectX.DirectInput, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\DirectX for Managed Code\1.0.2902.0\Microsoft.DirectX.DirectInput.dll</HintPath>
@@ -72,9 +66,6 @@
     <Compile Include="Joystick\VModel.cs" />
     <Compile Include="UART\UARTConnection.cs" />
     <Compile Include="UART\UARTModel.cs" />
-    <Compile Include="Video\BitmapSourceConvert.cs" />
-    <Compile Include="Video\VideoModel.cs" />
-    <Compile Include="Video\VideoModelView.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
